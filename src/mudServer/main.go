@@ -29,10 +29,15 @@ func main(){
 
 func handleClient(conn net.Conn){
   defer conn.Close()
-  // TODO : Hand off to login system
+
   a := auth.Authenticator{conn, conn}
-  username, _ := a.Login()
-  fmt.Printf("User %s Logged In\n", username)
+  username, err := a.Login()
+  if err == nil {
+    fmt.Printf("User %s Logged In\n", username)
+  } else {
+    fmt.Printf("Failed to log in %s\n", err.Error())
+    return
+  }
 
   // TODO : Hand off to player connection
   buffIn := bufio.NewReader(conn)

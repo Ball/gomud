@@ -2,3 +2,4 @@ pkg/*
 bin/*
 .gitignore.swp
 *.swp
+src/code.google.com/*

@@ -1,11 +1,11 @@
 Next Steps:
 * _done_ Simple echo server via telnet
-* Login
+* _done_ Login
  * _done_ Ask for Username/Password
   * _done_ Use a login context or some explicit authenticator
- * Verify against a persistent user list
-  * Create new users
-  * encrypted passwords
+ * _done_ Verify against a persistent user list
+  * _done_ Create new users
+  * _done_ encrypted passwords
 * Room Message after joining
 * Exit
   * exit should save the player

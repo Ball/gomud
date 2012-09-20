@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"mudServer/auth"
+	"mudServer/driver"
 	"net"
 	"os"
 	"strings"
@@ -40,29 +41,7 @@ func handleClient(conn net.Conn) {
 		return
 	}
 
-	// TODO : Hand off to player connection
-	buffIn := bufio.NewReader(conn)
-	buffOut := bufio.NewWriter(conn)
-	for {
-		line, _, err := buffIn.ReadLine()
-		if err != nil {
-			fmt.Printf("Error: %s\n", err.Error())
-			return
-		} else {
-			fmt.Printf("<<%s>>\n", line)
-		}
-		if strings.HasPrefix(string(line), "exit") {
-			return
-		}
-		_, err = conn.Write(line)
-
-		if err != nil {
-			fmt.Printf("Error: %s\n", err.Error())
-			return
-		} else {
-			buffOut.Flush()
-		}
-	}
+	(&driver.PlayerConnection{conn, conn, username}).Play()
 }
 func checkError(err error) {
 	if err != nil {

@@ -3,3 +3,5 @@ bin/*
 .gitignore.swp
 *.swp
 src/code.google.com/*
+.DS_Store
+*/.DS_Store

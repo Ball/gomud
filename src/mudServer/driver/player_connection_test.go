@@ -7,11 +7,12 @@ import (
 )
 
 func TestExits(t *testing.T) {
+	room := &Room{Description:"Some room description"}
 	const input = "exit\n"
-	const expectedOutput = "__SHOULD_BE_A_ROOM_MESSAGE__\nThanks for playing!\n"
+	expectedOutput := room.Description + "\nThanks for playing!\n"
 	inReader := strings.NewReader(input)
 	outWriter := bytes.NewBufferString("")
-	p := PlayerConnection { inReader, outWriter, "tony" }
+	p := PlayerConnection { inReader, outWriter, "tony", room }
 	p.Play()
 
 	if expectedOutput != outWriter.String() {

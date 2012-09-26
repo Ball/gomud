@@ -1,14 +1,14 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"mudServer/auth"
 	"mudServer/driver"
 	"net"
 	"os"
-	"strings"
 )
+
+var defaultRoom *driver.Room
 
 func main() {
 	// TODO : config for port
@@ -19,6 +19,8 @@ func main() {
 	listener, err := net.ListenTCP("tcp", tcpAddr)
 	checkError(err)
 
+	loadDefaultRoom()
+
 	for {
 		conn, err := listener.Accept()
 		if err != nil {
@@ -26,6 +28,10 @@ func main() {
 		}
 		go handleClient(conn)
 	}
+}
+
+func loadDefaultRoom(){
+	defaultRoom = &driver.Room{"A simple lobby"}
 }
 
 func handleClient(conn net.Conn) {
@@ -41,7 +47,7 @@ func handleClient(conn net.Conn) {
 		return
 	}
 
-	(&driver.PlayerConnection{conn, conn, username}).Play()
+	(&driver.PlayerConnection{conn, conn, username, defaultRoom}).Play()
 }
 func checkError(err error) {
 	if err != nil {

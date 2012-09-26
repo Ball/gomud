@@ -9,6 +9,7 @@ type PlayerConnection struct {
 	In io.Reader
 	Out io.Writer
 	UserName string
+	Room *Room
 }
 
 func (p *PlayerConnection) Inform(msg string) {
@@ -16,7 +17,7 @@ func (p *PlayerConnection) Inform(msg string) {
 }
 
 func (p *PlayerConnection) Play(){
-	p.Inform("__SHOULD_BE_A_ROOM_MESSAGE__\n")
+	p.Inform(p.Room.Description + "\n")
 	buffIn := bufio.NewReader(p.In)
 	for {
 		line, _, err := buffIn.ReadLine()

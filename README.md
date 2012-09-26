@@ -8,7 +8,7 @@ Next Steps:
   * ~~encrypted passwords~~
 * ~~Room Message after joining~~
 * ~~Exit~~
-  * ~~exit should save the player~~
+  * exit should save the player
 * Change rooms and get messages
 * Change rooms with other players
 * Talk to other players

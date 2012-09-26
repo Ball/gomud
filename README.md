@@ -1,14 +1,14 @@
 Next Steps:
-* __done__ Simple echo server via telnet
-* __done__ Login
- * __done__ Ask for Username/Password
-  * __done__ Use a login context or some explicit authenticator
- * __done__ Verify against a persistent user list
-  * __done__ Create new users
-  * __done__ encrypted passwords
-* __done__ Room Message after joining
-* __done__ Exit
-  * __done__ exit should save the player
+* ~~Simple echo server via telnet~~
+* ~~Login~~
+ * ~~Ask for Username/Password~~
+  * ~~Use a login context or some explicit authenticator~~
+ * ~~Verify against a persistent user list~~
+  * ~~Create new users~~
+  * ~~encrypted passwords~~
+* ~~Room Message after joining~~
+* ~~Exit~~
+  * ~~exit should save the player~~
 * Change rooms and get messages
 * Change rooms with other players
 * Talk to other players

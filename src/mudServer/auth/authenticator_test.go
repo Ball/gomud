@@ -7,12 +7,10 @@ import (
 	"testing"
 )
 
-type MappedUserStore struct {
-	Store map[string]string
-}
 
-func (u MappedUserStore) IsUser(username string, password string) bool {
-	return u.Store[username] == password
+type PasswordMap map[string]string
+func (s PasswordMap) IsUser(username string, password string) bool {
+	return s[username] == password
 }
 
 func TestLogsIn(t *testing.T) {
@@ -21,8 +19,7 @@ func TestLogsIn(t *testing.T) {
 
 	inReader := strings.NewReader(fmt.Sprintf("%s\n%s\n", username, password))
 	outWriter := bytes.NewBufferString("")
-	mapUserStore := MappedUserStore{map[string]string{username: password}}
-	a := Authenticator{inReader, outWriter, mapUserStore}
+	a := Authenticator{inReader, outWriter, PasswordMap{username: password}}
 
 	if x, _ := a.Login(); x != username {
 		t.Errorf("expected username %v got (%v)", username, x)
@@ -37,8 +34,7 @@ func TestLogInWithBadPassword(t *testing.T) {
 
 	inReader := strings.NewReader(fmt.Sprintf("%s\n%s\n\u0000", username, password))
 	outWriter := bytes.NewBufferString("")
-	mapUserStore := MappedUserStore{map[string]string{username: validPassword}}
-	a := Authenticator{inReader, outWriter, mapUserStore}
+	a := Authenticator{inReader, outWriter, PasswordMap{username: validPassword}}
 
 	a.Login()
 

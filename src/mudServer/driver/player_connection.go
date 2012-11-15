@@ -30,6 +30,10 @@ func (p *PlayerConnection) Play(){
 			return
 		} else if command == "help" {
 			p.Inform("try 'exit'\n")
+		} else if p.Room.KnowsCommand(command) {
+			p.Inform("There is no exit that way\n")
+		} else {
+			p.Inform("Unknown command\n")
 		}
 	}
 

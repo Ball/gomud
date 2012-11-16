@@ -1,6 +1,7 @@
 package driver
 
 import (
+	"fmt"
 	"strings"
 )
 type Exit struct {
@@ -10,6 +11,7 @@ type Exit struct {
 type Room struct {
 	Description string
 	exits []Exit
+	players []*PlayerConnection
 }
 
 func (r *Room) IsDirection(command string) bool {
@@ -42,6 +44,16 @@ func (r *Room) Direction(direction string) *Room{
 		}
 	}
 	return nil
+}
+func (r *Room) Enter(player *PlayerConnection){
+	if r.players == nil {
+		r.players = make([]*PlayerConnection, 0)
+	}
+	for _, p := range r.players {
+		p.Inform(fmt.Sprintf("%s has entered the room\n", player.UserName))
+	}
+	r.players = append(r.players, player)
+	player.Enter(r)
 }
 func (r *Room) Look() string {
 	return r.Description

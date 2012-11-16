@@ -12,11 +12,11 @@ func TestExiting(t *testing.T) {
 	expectedOutput := room.Description + "\nThanks for playing!\n"
 	inReader := strings.NewReader(input)
 	outWriter := bytes.NewBufferString("")
-	p := PlayerConnection { inReader, outWriter, "tony", room }
+	p := PlayerConnection { In: inReader, Out: outWriter, UserName: "tony", Room: room }
 	p.Play()
 
 	if expectedOutput != outWriter.String() {
-		t.Errorf("expected %v go (%v)", expectedOutput, outWriter)
+		t.Errorf("expected %v got (%v)", expectedOutput, outWriter)
 	}
 }
 
@@ -26,7 +26,7 @@ func TestLookingAtTheRoom(t *testing.T) {
 	expectedOutput := room.Description + "\n" + room.Description + "\nThanks for playing!\n"
 	inReader := strings.NewReader(input)
 	outWriter := bytes.NewBufferString("")
-	p := PlayerConnection { inReader, outWriter, "tony", room }
+	p := PlayerConnection { In: inReader, Out: outWriter, UserName: "tony", Room: room }
 	p.Play()
 
 	if expectedOutput != outWriter.String() {
@@ -40,7 +40,7 @@ func TestMovingToABadExit(t *testing.T){
 	expectedOutput := room.Description + "\nThere is no exit that way\nThanks for playing!\n"
 	inReader := strings.NewReader(input)
 	outWriter := bytes.NewBufferString("")
-	p := PlayerConnection { inReader, outWriter, "tony", room }
+	p := PlayerConnection { In: inReader, Out: outWriter, UserName: "tony", Room: room }
 	p.Play()
 
 	if expectedOutput != outWriter.String() {
@@ -57,7 +57,7 @@ func TestMovingToAGoodExit(t *testing.T) {
 	expectedOutput := room.Description + "\n" + nextRoom.Description + "\nThanks for playing!\n"
 	inReader := strings.NewReader(input)
 	outWriter := bytes.NewBufferString("")
-	p := PlayerConnection { inReader, outWriter, "tony", room }
+	p := PlayerConnection { In: inReader, Out: outWriter, UserName: "tony", Room: room }
 	p.Play()
 
 	if expectedOutput != outWriter.String(){

@@ -17,7 +17,7 @@ func (p *PlayerConnection) Inform(msg string) {
 }
 
 func (p *PlayerConnection) Play(){
-	p.Look()
+	p.Room.Enter(p)
 	buffIn := bufio.NewReader(p.In)
 	for {
 		line, _, err := buffIn.ReadLine()
@@ -41,6 +41,8 @@ func (p *PlayerConnection) Play(){
 
 }
 
+
+
 func (p *PlayerConnection) Look() {
 	p.Inform(p.Room.Look())
 }
@@ -50,7 +52,10 @@ func (p *PlayerConnection) ChangeRoom(direction string) {
 	if room == nil {
 		p.Inform("There is no exit that way")
 	} else {
-		p.Room = room
-		p.Look()
+		p.Enter(room)
 	}
+}
+func (p *PlayerConnection) Enter(room *Room){
+	p.Room = room
+	p.Look()
 }

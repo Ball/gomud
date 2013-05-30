@@ -7,8 +7,8 @@ import (
 	"testing"
 )
 
-
 type PasswordMap map[string]string
+
 func (s PasswordMap) IsUser(username string, password string) bool {
 	return s[username] == password
 }

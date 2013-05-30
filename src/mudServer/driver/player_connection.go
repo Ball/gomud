@@ -6,17 +6,17 @@ import (
 )
 
 type PlayerConnection struct {
-	In io.Reader
-	Out io.Writer
+	In       io.Reader
+	Out      io.Writer
 	UserName string
-	Room *Room
+	Room     *Room
 }
 
 func (p *PlayerConnection) Inform(msg string) {
-	io.WriteString(p.Out, msg + "\n")
+	io.WriteString(p.Out, msg+"\n")
 }
 
-func (p *PlayerConnection) Play(){
+func (p *PlayerConnection) Play() {
 	p.Room.Enter(p)
 	buffIn := bufio.NewReader(p.In)
 	for {
@@ -28,15 +28,15 @@ func (p *PlayerConnection) Play(){
 		} else if command == "exit" {
 			p.Inform("Thanks for playing!")
 			return
-    } else if p.Room.IsWhisper(command){
-      p.Room.Whisper(command, p)
+		} else if p.Room.IsWhisper(command) {
+			p.Room.Whisper(command, p)
 		} else if p.Room.IsSay(command) {
 			p.Room.Say(command, p)
 		} else if command == "help" {
 			p.Inform("try 'exit'")
 		} else if command == "look" {
 			p.Look()
-		}else if p.Room.IsDirection(command) {
+		} else if p.Room.IsDirection(command) {
 			p.ChangeRoom(command)
 		} else {
 			p.Inform("Unknown command")
@@ -44,8 +44,6 @@ func (p *PlayerConnection) Play(){
 	}
 
 }
-
-
 
 func (p *PlayerConnection) Look() {
 	p.Inform(p.Room.Look())
@@ -59,7 +57,7 @@ func (p *PlayerConnection) ChangeRoom(direction string) {
 		p.Enter(room)
 	}
 }
-func (p *PlayerConnection) Enter(room *Room){
+func (p *PlayerConnection) Enter(room *Room) {
 	p.Room = room
 	p.Look()
 }

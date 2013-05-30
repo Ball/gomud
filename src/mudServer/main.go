@@ -33,7 +33,7 @@ func main() {
 	}
 }
 
-func loadDefaultRoom(){
+func loadDefaultRoom() {
 	defaultRoom = new(driver.Room)
 	defaultRoom.Description = "A simple lobby"
 }

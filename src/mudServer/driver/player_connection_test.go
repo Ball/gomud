@@ -7,12 +7,12 @@ import (
 )
 
 func TestExiting(t *testing.T) {
-	room := &Room{Description:"Some room description"}
+	room := &Room{Description: "Some room description"}
 	const input = "exit\n"
 	expectedOutput := room.Description + "\nThanks for playing!\n"
 	inReader := strings.NewReader(input)
 	outWriter := bytes.NewBufferString("")
-	p := PlayerConnection { In: inReader, Out: outWriter, UserName: "tony", Room: room }
+	p := PlayerConnection{In: inReader, Out: outWriter, UserName: "tony", Room: room}
 	p.Play()
 
 	if expectedOutput != outWriter.String() {
@@ -21,12 +21,12 @@ func TestExiting(t *testing.T) {
 }
 
 func TestLookingAtTheRoom(t *testing.T) {
-	room := &Room{Description:"Some room description"}
+	room := &Room{Description: "Some room description"}
 	const input = "look\nexit\n"
 	expectedOutput := room.Description + "\n" + room.Description + "\nThanks for playing!\n"
 	inReader := strings.NewReader(input)
 	outWriter := bytes.NewBufferString("")
-	p := PlayerConnection { In: inReader, Out: outWriter, UserName: "tony", Room: room }
+	p := PlayerConnection{In: inReader, Out: outWriter, UserName: "tony", Room: room}
 	p.Play()
 
 	if expectedOutput != outWriter.String() {
@@ -34,13 +34,13 @@ func TestLookingAtTheRoom(t *testing.T) {
 	}
 }
 
-func TestMovingToABadExit(t *testing.T){
+func TestMovingToABadExit(t *testing.T) {
 	room := &Room{Description: "Some room description"}
 	const input = "north\nexit\n"
 	expectedOutput := room.Description + "\nThere is no exit that way\nThanks for playing!\n"
 	inReader := strings.NewReader(input)
 	outWriter := bytes.NewBufferString("")
-	p := PlayerConnection { In: inReader, Out: outWriter, UserName: "tony", Room: room }
+	p := PlayerConnection{In: inReader, Out: outWriter, UserName: "tony", Room: room}
 	p.Play()
 
 	if expectedOutput != outWriter.String() {
@@ -57,10 +57,10 @@ func TestMovingToAGoodExit(t *testing.T) {
 	expectedOutput := room.Description + "\n" + nextRoom.Description + "\nThanks for playing!\n"
 	inReader := strings.NewReader(input)
 	outWriter := bytes.NewBufferString("")
-	p := PlayerConnection { In: inReader, Out: outWriter, UserName: "tony", Room: room }
+	p := PlayerConnection{In: inReader, Out: outWriter, UserName: "tony", Room: room}
 	p.Play()
 
-	if expectedOutput != outWriter.String(){
+	if expectedOutput != outWriter.String() {
 		t.Errorf("expected %v got (%v)", expectedOutput, outWriter)
 	}
 }

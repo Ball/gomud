@@ -1,3 +1,4 @@
+*.exe
 pkg/*
 bin/*
 .gitignore.swp

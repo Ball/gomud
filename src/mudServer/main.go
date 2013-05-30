@@ -1,19 +1,22 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"mudServer/auth"
 	"mudServer/driver"
 	"net"
 	"os"
+	"strconv"
 )
 
 var defaultRoom *driver.Room
+var port = flag.Int("port", 1201, "The connection port")
 
 func main() {
-	// TODO : config for port
-	service := "localhost:1201"
-	tcpAddr, err := net.ResolveTCPAddr("ip4", service)
+	flag.Parse()
+	service := "localhost:" + strconv.Itoa(*port)
+	tcpAddr, err := net.ResolveTCPAddr("", service)
 	checkError(err)
 
 	listener, err := net.ListenTCP("tcp", tcpAddr)
@@ -31,7 +34,8 @@ func main() {
 }
 
 func loadDefaultRoom(){
-	defaultRoom = &driver.Room{"A simple lobby"}
+	defaultRoom = new(driver.Room)
+	defaultRoom.Description = "A simple lobby"
 }
 
 func handleClient(conn net.Conn) {

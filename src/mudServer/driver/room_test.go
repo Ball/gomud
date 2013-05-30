@@ -72,10 +72,10 @@ func TestSayToOthers(t *testing.T){
 		t.Errorf("expected %v got (%v)", expectedOutput, output)
 	}
 }
-// PENDING!
-func testWhisperToOthers(t *testing.T){
+
+func TestWhisperToOthers(t *testing.T){
 	room := &Room{Description:"Some room description"}
-	expectedOutput := "New Player says Hello"
+	expectedOutput := "New Player whispers Hello"
 
 	outWriter1 := bytes.NewBufferString("")
 	establishedPlayer1 := PlayerConnection { In: strings.NewReader(""),

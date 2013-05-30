@@ -14,14 +14,25 @@ type Room struct {
 	players []*PlayerConnection
 }
 
+func (r *Room) IsWhisper(command string) bool {
+  return strings.HasPrefix(command, "whisper")
+}
+func (r *Room) Whisper(command string, player *PlayerConnection) {
+  message := strings.TrimSpace(strings.Replace(command, "whisper", "", 1))
+  for _,p := range r.players {
+    if p == player {
+      continue
+    }
+    if !strings.HasPrefix(message, p.UserName) {
+      continue
+    }
+    message = strings.TrimSpace(strings.Replace(message, p.UserName, "", 1))
+    p.Inform(fmt.Sprintf("%s whispers %s", player.UserName, message))
+    return
+  }
+}
 func (r *Room) IsSay(command string) bool {
-	if r.exits == nil {
-		r.exits = make([]Exit, 0)
-	}
-	if strings.HasPrefix(command, "say") {
-		return true
-	}
-	return false
+	return strings.HasPrefix(command, "say")
 }
 func (r *Room) Say(command string, player *PlayerConnection) {
 	for _, p := range r.players {

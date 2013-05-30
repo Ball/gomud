@@ -28,6 +28,8 @@ func (p *PlayerConnection) Play(){
 		} else if command == "exit" {
 			p.Inform("Thanks for playing!")
 			return
+		} else if p.Room.IsSay(command) {
+			p.Room.Say(command, p)
 		} else if command == "help" {
 			p.Inform("try 'exit'")
 		} else if command == "look" {

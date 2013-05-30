@@ -10,9 +10,9 @@ Next Steps:
 * ~~Exit~~
   * exit should save the player
 * ~~Change rooms and get messages~~
-* Change rooms with other players
+* ~~Change rooms with other players~~
 * Talk to other players
-  * Broadcast in room
+  * ~~Broadcast in room~~
   * Broadcast in world
   * Whisper
   * Tell anywhere in world

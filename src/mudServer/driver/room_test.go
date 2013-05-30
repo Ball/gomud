@@ -48,3 +48,60 @@ func TestDoesNotAnnounceArrivalToSelf(t *testing.T){
 		t.Errorf("expected %v got (%v)", expectedOutput, outWriter)
 	}
 }
+
+// Communications in room
+func TestSayToOthers(t *testing.T){
+	room := &Room{Description:"Some room description"}
+	expectedOutput := "New Player says Hello"
+
+	outWriter := bytes.NewBufferString("")
+	establishedPlayer := PlayerConnection { In: strings.NewReader(""),
+	                                        Out: outWriter,
+						UserName: "Paul",
+						Room: room }
+	establishedPlayer.Play()
+
+	newPlayer := PlayerConnection { In: strings.NewReader("say Hello\nexit\n"),
+	                                Out: bytes.NewBufferString(""),
+					UserName: "New Player",
+					Room: room }
+	newPlayer.Play()
+	time.Sleep(2 * time.Millisecond)
+	output := outWriter.String()
+	if ! strings.Contains(output, expectedOutput) {
+		t.Errorf("expected %v got (%v)", expectedOutput, output)
+	}
+}
+// PENDING!
+func testWhisperToOthers(t *testing.T){
+	room := &Room{Description:"Some room description"}
+	expectedOutput := "New Player says Hello"
+
+	outWriter1 := bytes.NewBufferString("")
+	establishedPlayer1 := PlayerConnection { In: strings.NewReader(""),
+	                                        Out: outWriter1,
+						UserName: "Paul",
+						Room: room }
+	establishedPlayer1.Play()
+	outWriter2 := bytes.NewBufferString("")
+	establishedPlayer2 := PlayerConnection { In: strings.NewReader(""),
+	                                        Out: outWriter2,
+						UserName: "Sharon",
+						Room: room }
+	establishedPlayer2.Play()
+
+	newPlayer := PlayerConnection { In: strings.NewReader("whisper Paul Hello\nexit\n"),
+	                                Out: bytes.NewBufferString(""),
+					UserName: "New Player",
+					Room: room }
+	newPlayer.Play()
+	time.Sleep(2 * time.Millisecond)
+	output := outWriter1.String()
+	if ! strings.Contains(output, expectedOutput) {
+		t.Errorf("expected %v got (%v)", expectedOutput, output)
+	}
+	output = outWriter2.String()
+	if strings.Contains(output, expectedOutput) {
+		t.Errorf("expected %v got (%v)", expectedOutput, output)
+	}
+}

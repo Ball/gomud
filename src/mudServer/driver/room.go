@@ -14,6 +14,25 @@ type Room struct {
 	players []*PlayerConnection
 }
 
+func (r *Room) IsSay(command string) bool {
+	if r.exits == nil {
+		r.exits = make([]Exit, 0)
+	}
+	if strings.HasPrefix(command, "say") {
+		return true
+	}
+	return false
+}
+func (r *Room) Say(command string, player *PlayerConnection) {
+	for _, p := range r.players {
+		if p == player {
+			continue
+		}
+		message := strings.TrimSpace(strings.Replace(command, "say", "", 1))
+		p.Inform(fmt.Sprintf("%s says %s", player.UserName, message))
+	}
+}
+
 func (r *Room) IsDirection(command string) bool {
 	if r.exits == nil {
 		r.exits = make([]Exit, 0)

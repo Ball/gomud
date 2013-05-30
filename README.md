@@ -14,7 +14,7 @@ Next Steps:
 * Talk to other players
   * ~~Broadcast in room~~
   * Broadcast in world
-  * Whisper
+  * ~~Whisper~~
   * Tell anywhere in world
 * Items in room
   * take and drop items
